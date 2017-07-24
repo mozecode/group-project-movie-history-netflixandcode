@@ -115,3 +115,4 @@ $(document).on("click", '.star', (event) => {
 	console.log("targets", $target.attr('value'), $targetContainer);
 	$target.addClass('selectedStar');
 	$target.prevAll().addClass('selectedStar');
+});

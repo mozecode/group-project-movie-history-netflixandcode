@@ -62,7 +62,7 @@ fbFactory.addRatingToUserMovie =(rating, movieId)=>{
 fbFactory.deleteMovie = (movieId) => {
 	return new Promise( (resolve, reject) => {
 		console.log ("deleteMovie clicked", movieId);
-		getOneMovie(movieId)
+		fbFactory.getOneMovie(movieId)
 		.then ( (oneMovie) => {
 			let deleteKey = Object.keys(oneMovie)[0];
 			console.log("firebasekey?", deleteKey);
@@ -76,7 +76,7 @@ fbFactory.deleteMovie = (movieId) => {
 	});
 };
 
-function getOneMovie(movieId) {
+fbFactory.getOneMovie = (movieId) => {
 	return new Promise ( (resolve, reject) => {
 		let currentUser = firebase.auth().currentUser.uid;
 		let uniqueId = currentUser + movieId;
@@ -87,6 +87,6 @@ function getOneMovie(movieId) {
 			resolve(data);
 		});
 	});
-}
+};
 
 module.exports = fbFactory;

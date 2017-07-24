@@ -95,6 +95,49 @@ $('#movie').keypress( (event) => {
 			.then( (moredata) => {
 				console.log("dom loaded", moredata);
 			});
-	
+
 	}
+});
+
+$(document).on("click", '.star', (event) => {
+	let $target = $(event.target);
+	let $targetContainer = $(event.target).parent();
+	$targetContainer.children().removeClass('selectedStar');
+	console.log("targets", $target.attr('value'), $targetContainer);
+	$target.addClass('selectedStar');
+	$target.prevAll().addClass('selectedStar');
+	// switch ($target.attr('value')) {
+	// 	case '10' :
+	// 		$targetContainer.children('.10').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '9' :
+	// 		$targetContainer.children('.9').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '8' :
+	// 		$targetContainer.children('.8').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '7' :
+	// 		$targetContainer.children('.7').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '6' :
+	// 		$targetContainer.children('.6').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '5' :
+	// 		$targetContainer.children('.5').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '4' :
+	// 		$targetContainer.children('.4').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '3' :
+	// 		$targetContainer.children('.3').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '2' :
+	// 		$targetContainer.children('.2').addClass('selectedStar');
+	// 		/* falls through */
+	// 	case '1' :
+	// 		$targetContainer.children('.1').addClass('selectedStar');
+	// 		break;
+	// 	default :
+	// 		console.log("error rating stars");
+	// }
 });

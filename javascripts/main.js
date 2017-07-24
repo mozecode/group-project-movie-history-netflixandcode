@@ -111,20 +111,7 @@ $('#movie').keypress( (event) => {
 $(document).on("click", '.star', (event) => {
 	let $target = $(event.target);
 	let $targetContainer = $(event.target).parent();
-	let thisBtnId = $targetContainer.parent().siblings('.card-content').attr('id');
-	console.log("this id?", thisBtnId);
 	$targetContainer.children().removeClass('selectedStar');
 	console.log("targets", $target.attr('value'), $targetContainer);
 	$target.addClass('selectedStar');
 	$target.prevAll().addClass('selectedStar');
-
-	fbFactory.getOneMovie(thisBtnId)
-	.then( (userMovie) => {
-		let fbKey = Object.keys(userMovie)[0];
-		return fbFactory.addRatingToUserMovie($target.attr('value'), fbKey);
-	})
-	.then( (data) => {
-		console.log(data);
-
-	});
-});

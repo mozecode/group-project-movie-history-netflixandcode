@@ -23,6 +23,7 @@ movieController.getMovieIds = (movies) => {
   });
 };
 
+
 movieController.lookForNonUserMoviesInDOM = () => {
   return new Promise ( (resolve, reject) => {
      fbFactory.getUserMoviesForMatching()
@@ -86,6 +87,7 @@ movieController.lookForUserMoviesInDOM = () => {
   });
 };
 
+
 function hideByIds(idsOfMoviesToHide) {
   for (var i = 0; i < idsOfMoviesToHide.length; i++) {
     if ($(`#${idsOfMoviesToHide[i]}`).hasClass('card-content')) {
@@ -94,7 +96,8 @@ function hideByIds(idsOfMoviesToHide) {
     }
   }
 }
-// get the ids of card content
+
+// get the ids of card content from the DOM
 function findIdsInDOM() {
   return new Promise ( (resolve, rejecct) => {
       console.log($('.card-content'));
@@ -126,7 +129,6 @@ function compareIdsToDOM(moviesToCompare) {
     });
 }
 
-//TODO: create the logic for the rest of the filters.
 
 //looks at the user's watched movies (rating > 0), hides them from search results.
 function unwatchedFilter(userMovies) {

@@ -23,6 +23,69 @@ movieController.getMovieIds = (movies) => {
   });
 };
 
+movieController.lookForNonUserMoviesInDOM = () => {
+  return new Promise ( (resolve, reject) => {
+     fbFactory.getUserMoviesForMatching()
+    .then((userMovies) => {
+      return movieController.getMovieIds(userMovies);
+    })
+    .then((userMovieIds) => {
+      findIdsInDOM()
+      .then((DOMIds) => {
+        let idsToAddClassTo = DOMIds.filter( (id) => { //compare the two arrays of IDs
+        if (userMovieIds.indexOf(id) === -1) {
+          return id;
+        }
+      });
+      console.log("ids of things not in FB", idsToAddClassTo);
+      return idsToAddClassTo;
+      })
+      .then( (idsNotInFB) => {
+        for (var i = 0; i < idsNotInFB.length; i++) {
+          if ($(`#${idsNotInFB[i]}`).hasClass('card-content')) {
+          console.log("Element Found", $(`#${idsNotInFB[i]}`));
+          $(`#${idsNotInFB[i]}`).siblings('.addTracked').children('.rating').addClass('hideme');
+          $(`#${idsNotInFB[i]}`).siblings('.deleteCard').children('.delete-card-btn').addClass('hideme');
+
+        }
+      }
+    resolve();
+    });
+    });
+  });
+};
+
+movieController.lookForUserMoviesInDOM = () => {
+  return new Promise ( (resolve, reject) => {
+     fbFactory.getUserMoviesForMatching()
+    .then((userMovies) => {
+      return movieController.getMovieIds(userMovies);
+    })
+    .then((userMovieIds) => {
+      findIdsInDOM()
+      .then((DOMIds) => {
+        let idsToAddClassTo = DOMIds.filter( (id) => { //compare the two arrays of IDs
+        if (userMovieIds.indexOf(id) > -1) {
+          return id;
+        }
+      });
+      console.log("ids to add class to", idsToAddClassTo);
+      return idsToAddClassTo;
+      })
+      .then( (idsForClass) => {
+        for (var i = 0; i < idsForClass.length; i++) {
+          if ($(`#${idsForClass[i]}`).hasClass('card-content')) {
+          console.log("Element Found", $(`#${idsForClass[i]}`));
+          $(`#${idsForClass[i]}`).siblings('.addTracked').children('.add-to-watchlist-btn').addClass('hideme');
+
+        }
+      }
+    resolve();
+    });
+    });
+  });
+};
+
 function hideByIds(idsOfMoviesToHide) {
   for (var i = 0; i < idsOfMoviesToHide.length; i++) {
     if ($(`#${idsOfMoviesToHide[i]}`).hasClass('card-content')) {

@@ -13,7 +13,6 @@ module.exports.getMovies = () => {
         let input = $('#movie').val();
         apiCred.movieName = encodeURI(input);
         let searchURL = apiCred.url + apiCred.mode + apiCred.movieName + apiCred.key;
-        // console.log("searchurl", searchURL);
         $.ajax({
             type: 'GET',
             url: searchURL,
@@ -21,18 +20,15 @@ module.exports.getMovies = () => {
 
     }).done( (data) => {
         let temp = data.results;
-        //limit's the amount of data returned to 12 movies
         let movieArray = [];
         let movieData = temp.slice(0,20);
         for (let i = 0; i < movieData.length; i++) {
             movieArray.push(data.results[i]);
         }
-        // console.log("moviearr", movieArray);
         //call helper functions to append cast, passing in data
         let promisesArr = castPromiseMaker(movieArray);
         Promise.all(promisesArr)
         .then( (actors) => {
-            // console.log("actors", actors);
             showcase.movieObjBuilder(movieArray, actors);
             resolve(movieData);
             });
@@ -49,7 +45,6 @@ function castPromiseMaker(movieArray) {
     for(let i = 0; i < movieArray.length; i++) {
         let id = movieArray[i].id;
         let castUrl = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiCred.key}`;
-        // (console.log("casturl", castUrl));
         promisesArr.push(getActors(castUrl));
     }
     return promisesArr;

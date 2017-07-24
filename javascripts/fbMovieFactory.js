@@ -45,7 +45,7 @@ fbFactory.getUserMoviesForMatching = () => {
 	});
 };
 
-//need to add user value for rating on movie object using patch
+//add user value for rating on movie object using patch
 fbFactory.addRatingToUserMovie =(rating, movieId)=>{
 	let movieRating = {rating:`${rating}`};
 	return new Promise((resolve, reject)=>{
@@ -59,6 +59,7 @@ fbFactory.addRatingToUserMovie =(rating, movieId)=>{
 	});
 };
 
+//get the id that will allows us to delete just this one movie for just this one user
 fbFactory.deleteMovie = (movieId) => {
 	return new Promise( (resolve, reject) => {
 		console.log ("deleteMovie clicked", movieId);
@@ -76,6 +77,7 @@ fbFactory.deleteMovie = (movieId) => {
 	});
 };
 
+//get one movie matching the unique ID that is a combo of uid and movie id
 fbFactory.getOneMovie = (movieId) => {
 	return new Promise ( (resolve, reject) => {
 		let currentUser = firebase.auth().currentUser.uid;

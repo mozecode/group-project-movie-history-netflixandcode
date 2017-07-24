@@ -3,10 +3,24 @@
 	display: none
 
 .card .card-image img
-	height: 500px
+	height: 600px
 
 .card-content
 	height: 120px
+
+
+span
+	font-size: 1.2em
+
+.rating > span:hover::before
+	content: "\2605"
+	position: absolute
+	color: #ffca1c
+
+.selectedStar::before
+	content: "\2605"
+	position: absolute
+	color: #ffca1c
 
 .hidden
 	display: none

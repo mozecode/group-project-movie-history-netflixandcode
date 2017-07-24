@@ -103,7 +103,14 @@ $('#movie').keypress( (event) => {
 			.then( (moredata) => {
 				console.log("dom loaded", moredata);
 			});
-	
+
 	}
 });
 
+$(document).on("click", '.star', (event) => {
+	let $target = $(event.target);
+	let $targetContainer = $(event.target).parent();
+	$targetContainer.children().removeClass('selectedStar');
+	console.log("targets", $target.attr('value'), $targetContainer);
+	$target.addClass('selectedStar');
+	$target.prevAll().addClass('selectedStar');

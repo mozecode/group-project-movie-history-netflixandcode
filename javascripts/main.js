@@ -61,11 +61,14 @@ $(document).on("click", '.add-to-watchlist-btn', (event) => {
 
 //if user clicks delete button, the movie is removed from DOM
 $(document).on("click", ".deleteCard", (event) => {
+
 	console.log('delete button clicked');
-	$(event.target).parent().parent().remove();
+	// $(event.target).parent().parent().remove();
 	let thisBtnId = $(event.target).parent().siblings('.card-content').attr('id');
 	console.log("what to delete?", thisBtnId);
 	fbFactory.deleteMovie(thisBtnId);
+
+
 });
 
 // clicking on a filter button adds a filter class to the search box, then calls on the filterCheck to see which class
@@ -102,10 +105,25 @@ $('#movie').keypress( (event) => {
 			movieCtr.clearDOM();
 			movieFactory.getMovies()
 			.then( (moredata) => {
-				console.log("dom loaded", moredata);
+				return movieCtr.lookForUserMoviesInDOM();
+			})
+			.then( (stuff) => {
+				return movieCtr.lookForNonUserMoviesInDOM();
+			})
+			.then( (stuff2) => {
+				console.log(stuff2);
 			});
 
 	}
+});
+
+$(document).on("click", '.card-action', () => {
+	$('.hideme').removeClass('hideme');
+	movieCtr.lookForUserMoviesInDOM()
+	.then ( (data) => {
+		movieCtr.lookForNonUserMoviesInDOM();
+		movieCtr.filterCheck();
+	});
 });
 
 $(document).on("click", '.star', (event) => {
